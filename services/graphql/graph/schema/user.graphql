@@ -1,0 +1,12 @@
+type User {
+  token: String
+  id: Int
+  firstName: String
+  lastName: String
+  email: String
+  facebookId: String
+  googleId: String
+  avatar: String
+  createdAt: String
+  updatedAt: String
+}

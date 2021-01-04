@@ -1,0 +1,45 @@
+type Order {
+  id: Int
+  orderCode: String
+  orderType: String
+  products: String
+  orderStatus: String
+  quantity: Int
+  totalPrice: Int
+  createdAt: String
+  updatedAt: String
+}
+
+input CreateOrder {
+  orderCode: String!
+  orderType: String!
+  products: String!
+  orderStatus: String!
+  quantity: Int!
+  totalPrice: Int!
+}
+
+input UpdateOrder {
+  id: Int!
+  orderCode: String
+  orderType: String
+  products: String
+  orderStatus: String
+  quantity: Int
+  totalPrice: Int
+}
+
+input DeleteOrder {
+  id: Int!
+}
+
+extend type Mutation {
+  orderCreate(input: CreateOrder!): Order
+  orderUpdate(input: UpdateOrder!): Order
+  orderDelete(input: DeleteOrder!): Int
+}
+
+extend type Query {
+  order(id: Int!): Order
+  orders(filter: String!, limit: Int!, page: Int!): [Order!]!
+}
