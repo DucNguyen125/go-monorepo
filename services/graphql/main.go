@@ -16,7 +16,7 @@ import (
 func main() {
 	var err error
 	if err = godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
+		log.Print("Error loading .env file")
 	}
 	gin.SetMode(os.Getenv("RUN_MODE"))
 
@@ -29,9 +29,6 @@ func main() {
 	}
 	// Register Router
 	routersInit := routers.InitRouter()
-	if err != nil {
-		log.Fatal("Error get PORT")
-	}
 	endPoint := fmt.Sprintf(":%s", port)
 	server := &http.Server{
 		Addr:    endPoint,

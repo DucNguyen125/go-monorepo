@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  graphql:
+    build:
+      context: .
+      dockerfile: services/graphql/Dockerfile
+    container_name: graphql
+    env_file:
+      - .env.dev
+    ports:
+      - "${GRAPHQL_SERVER_PORT}:${GRAPHQL_SERVER_PORT}"
+    restart: unless-stopped
+
+  authentication-service:
+    build:
+      context: .
+      dockerfile: services/authentication-service/Dockerfile
+    container_name: authentication-service
+    env_file:
+      - .env.dev
+    ports:
+      - "${AUTHENTICATION_SERVER_PORT}:${AUTHENTICATION_SERVER_PORT}"
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  order-service:
+    build:
+      context: .
+      dockerfile: services/order-service/Dockerfile
+    container_name: order-service
+    env_file:
+      - .env.dev
+    ports:
+      - "${ORDER_SERVER_PORT}:${ORDER_SERVER_PORT}"
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  product-service:
+    build:
+      context: .
+      dockerfile: services/product-service/Dockerfile
+    container_name: product-service
+    env_file:
+      - .env.dev
+    ports:
+      - "${PRODUCT_SERVER_PORT}:${PRODUCT_SERVER_PORT}"
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - .docker/data/db:/var/lib/mysql
+    ports:
+      - 3307:3306

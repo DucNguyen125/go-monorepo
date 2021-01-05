@@ -23,7 +23,7 @@ import (
 func main() {
 	var err error
 	if err = godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
+		log.Print("Error loading .env file")
 	}
 
 	// Init logger
@@ -38,7 +38,7 @@ func main() {
 	if err = mysql_util.AutoMigrate(); err != nil {
 		log.Fatal("Error migrating to database")
 	}
-	port := os.Getenv("ORDER_SERVER_ORT")
+	port := os.Getenv("ORDER_SERVER_PORT")
 	if port == "" {
 		port = "3001"
 	}

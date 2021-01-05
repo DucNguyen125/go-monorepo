@@ -1,3 +1,6 @@
 .env
 .vscode
 *.log
+.docker
+.env.*
+!.env.example
